@@ -1,8 +1,26 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+
+// Stripe Payment Links
+const PAYMENT_LINKS = {
+  trial: 'https://buy.stripe.com/fZufZg89id8v1H051ZbfO0A',
+  starter: 'https://buy.stripe.com/14A9AS2OYd8vadwcurbfO0B',
+  growth: 'https://buy.stripe.com/bJe9AS75e2tR4TcamjbfO0C',
+  scale: 'https://buy.stripe.com/bJeeVc61afgD85obqnbfO0D',
+}
 
 function App() {
   const [formData, setFormData] = useState({ name: '', email: '', message: '' })
   const [submitted, setSubmitted] = useState(false)
+  const [showSuccess, setShowSuccess] = useState(false)
+
+  useEffect(() => {
+    // Check for success redirect from Stripe
+    const params = new URLSearchParams(window.location.search)
+    if (params.get('success') === 'true') {
+      setShowSuccess(true)
+      window.history.replaceState({}, '', window.location.pathname)
+    }
+  }, [])
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -11,8 +29,27 @@ function App() {
 
   return (
     <div className="min-h-screen bg-slate-950 text-white">
+      {/* Success Modal */}
+      {showSuccess && (
+        <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-6">
+          <div className="bg-slate-900 rounded-2xl p-8 max-w-md text-center border border-green-500/30">
+            <div className="text-6xl mb-4">🎉</div>
+            <h2 className="text-2xl font-bold mb-2">Payment Successful!</h2>
+            <p className="text-slate-400 mb-6">
+              Thank you for your purchase! We'll be in touch within 24 hours to get started on your content.
+            </p>
+            <button
+              onClick={() => setShowSuccess(false)}
+              className="bg-green-600 hover:bg-green-700 px-6 py-3 rounded-lg font-semibold transition"
+            >
+              Got it!
+            </button>
+          </div>
+        </div>
+      )}
+
       {/* Navigation */}
-      <nav className="fixed top-0 w-full bg-slate-950/90 backdrop-blur-sm z-50 border-b border-slate-800">
+      <nav className="fixed top-0 w-full bg-slate-950/90 backdrop-blur-sm z-40 border-b border-slate-800">
         <div className="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
           <div className="text-2xl font-bold gradient-text">Blog Squad</div>
           <div className="hidden md:flex gap-8">
@@ -20,7 +57,7 @@ function App() {
             <a href="#packages" className="hover:text-indigo-400 transition">Packages</a>
             <a href="#contact" className="hover:text-indigo-400 transition">Contact</a>
           </div>
-          <a href="#contact" className="bg-indigo-600 hover:bg-indigo-700 px-5 py-2 rounded-lg font-medium transition">
+          <a href={PAYMENT_LINKS.trial} className="bg-indigo-600 hover:bg-indigo-700 px-5 py-2 rounded-lg font-medium transition">
             Get Started
           </a>
         </div>
@@ -40,7 +77,7 @@ function App() {
             at a fraction of the cost and turnaround time.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a href="#contact" className="bg-indigo-600 hover:bg-indigo-700 px-8 py-4 rounded-xl font-semibold text-lg transition">
+            <a href={PAYMENT_LINKS.trial} className="bg-indigo-600 hover:bg-indigo-700 px-8 py-4 rounded-xl font-semibold text-lg transition">
               Start Your Trial — $150
             </a>
             <a href="#how-it-works" className="border border-slate-700 hover:border-slate-600 px-8 py-4 rounded-xl font-semibold text-lg transition">
@@ -172,7 +209,8 @@ function App() {
                 unit: '/post',
                 features: ['1,500-2,000 word blog post', 'Basic keyword research', 'SEO-optimized structure', '1 revision round', '48-hour turnaround'],
                 best: 'Occasional content needs',
-                featured: false
+                featured: false,
+                link: PAYMENT_LINKS.starter
               },
               {
                 tier: '🥈',
@@ -182,7 +220,8 @@ function App() {
                 subtitle: '4 posts ($250/post)',
                 features: ['Everything in Starter', 'Content calendar', 'Competitor monitoring', 'Monthly SEO check-in', '2 revision rounds', '24-hour turnaround'],
                 best: 'Consistent content marketing',
-                featured: false
+                featured: false,
+                link: PAYMENT_LINKS.growth
               },
               {
                 tier: '🥇',
@@ -192,7 +231,8 @@ function App() {
                 subtitle: '8 posts ($250/post)',
                 features: ['Everything in Growth', 'Full SEO strategy doc', 'Keyword gap analysis', 'Content repurposing', 'Unlimited revisions', 'Dedicated channel'],
                 best: 'Aggressive organic growth',
-                featured: true
+                featured: true,
+                link: PAYMENT_LINKS.scale
               },
               {
                 tier: '🏆',
@@ -201,10 +241,11 @@ function App() {
                 unit: '',
                 features: ['12+ posts/month', 'Multi-brand support', 'Landing pages & product copy', 'CMS API integration', 'White-label options'],
                 best: 'Agencies & e-commerce',
-                featured: false
+                featured: false,
+                link: '#contact'
               },
             ].map((pkg, i) => (
-              <div key={i} className={`rounded-2xl p-6 ${pkg.featured ? 'bg-indigo-600 ring-2 ring-indigo-400' : 'bg-slate-800/50 border border-slate-700'}`}>
+              <div key={i} className={`rounded-2xl p-6 flex flex-col ${pkg.featured ? 'bg-indigo-600 ring-2 ring-indigo-400' : 'bg-slate-800/50 border border-slate-700'}`}>
                 <div className="text-2xl mb-2">{pkg.tier}</div>
                 <h3 className="text-xl font-bold mb-1">{pkg.name}</h3>
                 <div className="mb-1">
@@ -213,7 +254,7 @@ function App() {
                 </div>
                 {pkg.subtitle && <p className="text-sm text-slate-400 mb-4">{pkg.subtitle}</p>}
                 {!pkg.subtitle && <div className="mb-4"></div>}
-                <ul className="space-y-2 mb-6">
+                <ul className="space-y-2 mb-6 flex-grow">
                   {pkg.features.map((f, j) => (
                     <li key={j} className="flex items-start gap-2 text-sm">
                       <span className={pkg.featured ? 'text-indigo-200' : 'text-green-400'}>✓</span>
@@ -221,7 +262,19 @@ function App() {
                     </li>
                   ))}
                 </ul>
-                <p className={`text-sm italic ${pkg.featured ? 'text-indigo-200' : 'text-slate-500'}`}>Best for: {pkg.best}</p>
+                <p className={`text-sm italic mb-4 ${pkg.featured ? 'text-indigo-200' : 'text-slate-500'}`}>Best for: {pkg.best}</p>
+                <a 
+                  href={pkg.link}
+                  className={`block text-center py-3 rounded-lg font-semibold transition ${
+                    pkg.featured 
+                      ? 'bg-white text-indigo-600 hover:bg-indigo-50' 
+                      : pkg.name === 'Enterprise'
+                        ? 'bg-slate-700 hover:bg-slate-600 text-white'
+                        : 'bg-indigo-600 hover:bg-indigo-700 text-white'
+                  }`}
+                >
+                  {pkg.name === 'Enterprise' ? 'Contact Us' : 'Get Started'}
+                </a>
               </div>
             ))}
           </div>
@@ -263,8 +316,8 @@ function App() {
             <p className="text-indigo-200 mb-8">
               Love it? We'll credit the $150 toward your first monthly package.
             </p>
-            <a href="#contact" className="inline-block bg-white text-indigo-600 hover:bg-indigo-50 px-8 py-4 rounded-xl font-bold text-lg transition">
-              Start Your Trial
+            <a href={PAYMENT_LINKS.trial} className="inline-block bg-white text-indigo-600 hover:bg-indigo-50 px-8 py-4 rounded-xl font-bold text-lg transition">
+              Start Your Trial — $150
             </a>
           </div>
         </div>
@@ -274,7 +327,7 @@ function App() {
       <section id="contact" className="py-20 px-6 bg-slate-900/50">
         <div className="max-w-xl mx-auto">
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-4">Get Started</h2>
-          <p className="text-slate-400 text-center mb-10">Tell us about your content needs</p>
+          <p className="text-slate-400 text-center mb-10">Questions? Enterprise inquiry? Drop us a line.</p>
           
           {submitted ? (
             <div className="bg-green-500/20 border border-green-500/30 rounded-xl p-8 text-center">
