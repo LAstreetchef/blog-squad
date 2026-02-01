@@ -13,12 +13,23 @@ function App() {
   const [submitted, setSubmitted] = useState(false)
   const [showSuccess, setShowSuccess] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [showCompareWidget, setShowCompareWidget] = useState(false)
+  const [compareWidgetDismissed, setCompareWidgetDismissed] = useState(false)
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search)
     if (params.get('success') === 'true') {
       setShowSuccess(true)
       window.history.replaceState({}, '', window.location.pathname)
+    }
+    
+    // Show compare widget after 5 seconds
+    const dismissed = localStorage.getItem('compareWidgetDismissed')
+    if (!dismissed) {
+      const timer = setTimeout(() => {
+        setShowCompareWidget(true)
+      }, 5000)
+      return () => clearTimeout(timer)
     }
   }, [])
 
@@ -44,6 +55,43 @@ function App() {
             >
               Got it!
             </button>
+          </div>
+        </div>
+      )}
+
+      {/* Compare Widget Popup */}
+      {showCompareWidget && !compareWidgetDismissed && (
+        <div className="fixed bottom-6 right-6 z-50 animate-slide-up">
+          <div className="bg-white rounded-2xl shadow-2xl border border-slate-200 p-6 max-w-sm">
+            <button 
+              onClick={() => {
+                setCompareWidgetDismissed(true)
+                localStorage.setItem('compareWidgetDismissed', 'true')
+              }}
+              className="absolute top-3 right-3 text-slate-400 hover:text-slate-600 transition"
+            >
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+            <div className="flex items-start gap-4">
+              <div className="w-12 h-12 bg-[#3858e9]/10 rounded-xl flex items-center justify-center flex-shrink-0">
+                <span className="text-2xl">⚖️</span>
+              </div>
+              <div>
+                <h3 className="font-bold text-slate-900 mb-1">Not sure yet?</h3>
+                <p className="text-slate-600 text-sm mb-3">See how Blog Squad compares to Jasper, Copy.ai, agencies & more.</p>
+                <a 
+                  href="/blog-squad/compare/" 
+                  className="inline-flex items-center gap-1 text-[#3858e9] font-semibold text-sm hover:underline"
+                >
+                  View Comparisons
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                </a>
+              </div>
+            </div>
           </div>
         </div>
       )}
