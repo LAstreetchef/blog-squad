@@ -8,11 +8,166 @@ const PAYMENT_LINKS = {
   scale: 'https://buy.stripe.com/bJeeVc61afgD85obqnbfO0D',
 }
 
-// Decorative blob component
-const Blob = ({ className, color = "#3858e9" }) => (
-  <svg className={className} viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-    <path fill={color} d="M44.7,-76.4C58.8,-69.2,71.8,-59.1,79.6,-45.8C87.4,-32.6,90,-16.3,88.5,-0.9C87,14.6,81.4,29.2,73.1,42.2C64.8,55.2,53.7,66.6,40.3,74.5C26.9,82.4,11.2,86.8,-3.8,85.1C-18.8,83.4,-33,75.6,-45.9,66.3C-58.8,57,-70.5,46.2,-77.8,32.6C-85.2,19,-88.2,2.6,-85.6,-12.7C-83,-28,-74.8,-42.2,-63.4,-51.8C-52,-61.4,-37.4,-66.4,-23.4,-73.5C-9.4,-80.6,4,-89.8,18.3,-89.2C32.6,-88.6,47.8,-78.2,44.7,-76.4Z" transform="translate(100 100)" />
-  </svg>
+// Icon Components
+const Icons = {
+  target: () => (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-full h-full">
+      <circle cx="12" cy="12" r="10" />
+      <circle cx="12" cy="12" r="6" />
+      <circle cx="12" cy="12" r="2" />
+    </svg>
+  ),
+  lightning: () => (
+    <svg viewBox="0 0 24 24" fill="currentColor" className="w-full h-full">
+      <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
+    </svg>
+  ),
+  brain: () => (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-full h-full">
+      <path d="M12 2a7 7 0 0 0-7 7c0 2.38 1.19 4.47 3 5.74V17a2 2 0 0 0 2 2h4a2 2 0 0 0 2-2v-2.26c1.81-1.27 3-3.36 3-5.74a7 7 0 0 0-7-7z" />
+      <path d="M9 21h6M12 17v4" />
+    </svg>
+  ),
+  chart: () => (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-full h-full">
+      <path d="M3 3v18h18" />
+      <path d="M7 16l4-4 4 4 5-6" />
+    </svg>
+  ),
+  pen: () => (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-full h-full">
+      <path d="M12 20h9M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z" />
+    </svg>
+  ),
+  search: () => (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-full h-full">
+      <circle cx="11" cy="11" r="8" />
+      <path d="M21 21l-4.35-4.35" />
+    </svg>
+  ),
+  shield: () => (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-full h-full">
+      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+    </svg>
+  ),
+  cube: () => (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-full h-full">
+      <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" />
+      <path d="M3.27 6.96L12 12.01l8.73-5.05M12 22.08V12" />
+    </svg>
+  ),
+  arrow: () => (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-full h-full">
+      <path d="M5 12h14M12 5l7 7-7 7" />
+    </svg>
+  ),
+  check: () => (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-full h-full">
+      <path d="M20 6L9 17l-5-5" />
+    </svg>
+  ),
+  grid: () => (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-full h-full">
+      <rect x="3" y="3" width="7" height="7" />
+      <rect x="14" y="3" width="7" height="7" />
+      <rect x="14" y="14" width="7" height="7" />
+      <rect x="3" y="14" width="7" height="7" />
+    </svg>
+  ),
+  layers: () => (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-full h-full">
+      <polygon points="12 2 2 7 12 12 22 7 12 2" />
+      <polyline points="2 17 12 22 22 17" />
+      <polyline points="2 12 12 17 22 12" />
+    </svg>
+  ),
+  cpu: () => (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-full h-full">
+      <rect x="4" y="4" width="16" height="16" rx="2" />
+      <rect x="9" y="9" width="6" height="6" />
+      <path d="M9 1v3M15 1v3M9 20v3M15 20v3M20 9h3M20 14h3M1 9h3M1 14h3" />
+    </svg>
+  ),
+}
+
+// Animated grid background
+const GridBackground = () => (
+  <div className="absolute inset-0 overflow-hidden">
+    {/* Main grid */}
+    <div 
+      className="absolute inset-0 opacity-[0.07]" 
+      style={{ 
+        backgroundImage: `
+          linear-gradient(rgba(34, 211, 238, 0.8) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(34, 211, 238, 0.8) 1px, transparent 1px)
+        `,
+        backgroundSize: '60px 60px'
+      }}
+    />
+    {/* Secondary grid */}
+    <div 
+      className="absolute inset-0 opacity-[0.03]" 
+      style={{ 
+        backgroundImage: `
+          linear-gradient(rgba(168, 85, 247, 0.5) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(168, 85, 247, 0.5) 1px, transparent 1px)
+        `,
+        backgroundSize: '120px 120px'
+      }}
+    />
+    {/* Vertical accent lines */}
+    <div className="absolute top-0 left-1/4 w-px h-full bg-gradient-to-b from-transparent via-cyan-500/30 to-transparent" />
+    <div className="absolute top-0 left-1/2 w-px h-full bg-gradient-to-b from-cyan-500/20 via-purple-500/20 to-transparent" />
+    <div className="absolute top-0 right-1/4 w-px h-full bg-gradient-to-b from-transparent via-purple-500/30 to-transparent" />
+    {/* Horizontal accent lines */}
+    <div className="absolute left-0 top-1/3 h-px w-full bg-gradient-to-r from-transparent via-cyan-500/20 to-transparent" />
+    <div className="absolute left-0 top-2/3 h-px w-full bg-gradient-to-r from-transparent via-purple-500/15 to-transparent" />
+    {/* Corner accents */}
+    <div className="absolute top-20 left-20 w-32 h-32 border border-cyan-500/10 rotate-45" />
+    <div className="absolute bottom-20 right-20 w-48 h-48 border border-purple-500/10 rotate-12" />
+    <div className="absolute top-1/2 right-10 w-24 h-24 border border-cyan-500/5 rounded-full" />
+  </div>
+)
+
+// Glowing orb decoration
+const GlowOrb = ({ color = 'cyan', size = 'lg', position = '', pulse = false }) => {
+  const sizeClasses = {
+    sm: 'w-48 h-48',
+    md: 'w-80 h-80',
+    lg: 'w-[500px] h-[500px]',
+    xl: 'w-[700px] h-[700px]'
+  }
+  const colorClasses = {
+    cyan: 'bg-cyan-500/25',
+    purple: 'bg-purple-500/20',
+    pink: 'bg-pink-500/15',
+    mixed: 'bg-gradient-to-br from-cyan-500/25 via-purple-500/20 to-pink-500/15'
+  }
+  return (
+    <div className={`absolute ${sizeClasses[size]} ${colorClasses[color]} rounded-full blur-[120px] ${position} ${pulse ? 'animate-pulse-slow' : ''}`} />
+  )
+}
+
+// Floating shapes decoration
+const FloatingShapes = () => (
+  <div className="absolute inset-0 overflow-hidden pointer-events-none">
+    {/* Rotating rings */}
+    <div className="absolute top-1/4 right-1/4 w-64 h-64 border border-cyan-500/20 rounded-full animate-[spin_30s_linear_infinite]" />
+    <div className="absolute top-1/4 right-1/4 w-72 h-72 border border-purple-500/10 rounded-full animate-[spin_40s_linear_infinite_reverse]" />
+    
+    {/* Geometric accents */}
+    <svg className="absolute top-20 left-[10%] w-16 h-16 text-cyan-500/20 animate-pulse" viewBox="0 0 24 24" fill="currentColor">
+      <polygon points="12 2 22 20 2 20" />
+    </svg>
+    <svg className="absolute bottom-32 right-[15%] w-12 h-12 text-purple-500/15" viewBox="0 0 24 24" fill="currentColor">
+      <rect x="3" y="3" width="18" height="18" transform="rotate(45 12 12)" />
+    </svg>
+    <svg className="absolute top-[60%] left-[5%] w-20 h-20 text-cyan-500/10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1">
+      <circle cx="12" cy="12" r="10" />
+      <circle cx="12" cy="12" r="6" />
+      <circle cx="12" cy="12" r="2" />
+    </svg>
+  </div>
 )
 
 function App() {
@@ -20,22 +175,12 @@ function App() {
   const [submitted, setSubmitted] = useState(false)
   const [showSuccess, setShowSuccess] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-  const [showCompareWidget, setShowCompareWidget] = useState(false)
-  const [compareWidgetDismissed, setCompareWidgetDismissed] = useState(false)
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search)
     if (params.get('success') === 'true') {
       setShowSuccess(true)
       window.history.replaceState({}, '', window.location.pathname)
-    }
-    
-    const dismissed = localStorage.getItem('compareWidgetDismissed')
-    if (!dismissed) {
-      const timer = setTimeout(() => {
-        setShowCompareWidget(true)
-      }, 5000)
-      return () => clearTimeout(timer)
     }
   }, [])
 
@@ -45,204 +190,297 @@ function App() {
   }
 
   return (
-    <div className="min-h-screen bg-white text-slate-900 overflow-x-hidden">
+    <div className="min-h-screen bg-[#0a0a0f] text-white overflow-x-hidden">
+      {/* Custom styles */}
+      <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+        
+        body { font-family: 'Inter', sans-serif; }
+        
+        .clip-corner {
+          clip-path: polygon(16px 0, 100% 0, 100% calc(100% - 16px), calc(100% - 16px) 100%, 0 100%, 0 16px);
+        }
+        .clip-corner-sm {
+          clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);
+        }
+        
+        .glow-cyan {
+          box-shadow: 0 0 40px rgba(34, 211, 238, 0.15), 0 0 80px rgba(34, 211, 238, 0.05);
+        }
+        .glow-cyan-strong {
+          box-shadow: 0 0 30px rgba(34, 211, 238, 0.3), 0 0 60px rgba(34, 211, 238, 0.1);
+        }
+        
+        .text-gradient {
+          background: linear-gradient(135deg, #22d3ee 0%, #a855f7 50%, #ec4899 100%);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
+        }
+        
+        .border-gradient {
+          border: 1px solid transparent;
+          background: linear-gradient(#0a0a0f, #0a0a0f) padding-box,
+                      linear-gradient(135deg, rgba(34, 211, 238, 0.3), rgba(168, 85, 247, 0.3)) border-box;
+        }
+        
+        .animate-pulse-slow {
+          animation: pulse-glow 6s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        
+        @keyframes pulse-glow {
+          0%, 100% { opacity: 0.6; transform: scale(1); }
+          50% { opacity: 1; transform: scale(1.05); }
+        }
+        
+        @keyframes float {
+          0%, 100% { transform: translateY(0px) rotate(0deg); }
+          50% { transform: translateY(-20px) rotate(5deg); }
+        }
+        
+        .animate-float {
+          animation: float 8s ease-in-out infinite;
+        }
+        
+        @keyframes shimmer {
+          0% { background-position: -200% 0; }
+          100% { background-position: 200% 0; }
+        }
+        
+        .shimmer-border {
+          background: linear-gradient(90deg, transparent, rgba(34, 211, 238, 0.3), transparent);
+          background-size: 200% 100%;
+          animation: shimmer 3s linear infinite;
+        }
+      `}</style>
+
       {/* Success Modal */}
       {showSuccess && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-6">
-          <div className="bg-white rounded-2xl p-8 max-w-md text-center shadow-2xl">
-            <div className="text-6xl mb-4">🎉</div>
-            <h2 className="text-2xl font-bold mb-2">Payment Successful!</h2>
-            <p className="text-slate-600 mb-6">
-              Thank you for your purchase! We'll be in touch within 24 hours to get started on your content.
+        <div className="fixed inset-0 bg-black/90 backdrop-blur-sm flex items-center justify-center z-50 p-6">
+          <div className="bg-[#12121a] border border-cyan-500/30 p-10 max-w-md text-center clip-corner glow-cyan">
+            <div className="w-16 h-16 mx-auto mb-6 text-cyan-400">
+              <Icons.check />
+            </div>
+            <h2 className="text-2xl font-bold mb-3 text-white">Payment Confirmed</h2>
+            <p className="text-gray-400 mb-8">
+              Your squad is being assembled. Expect contact within 24 hours.
             </p>
             <button
               onClick={() => setShowSuccess(false)}
-              className="bg-[#3858e9] hover:bg-[#2945c4] text-white px-6 py-3 rounded-full font-semibold transition"
+              className="bg-cyan-500 hover:bg-cyan-400 text-black px-8 py-3 font-semibold transition-all clip-corner-sm"
             >
-              Got it!
+              Continue
             </button>
-          </div>
-        </div>
-      )}
-
-      {/* Compare Widget Popup */}
-      {showCompareWidget && !compareWidgetDismissed && (
-        <div className="fixed bottom-6 right-6 z-50 animate-slide-up">
-          <div className="bg-white rounded-2xl shadow-2xl border border-slate-200 p-6 max-w-sm">
-            <button 
-              onClick={() => {
-                setCompareWidgetDismissed(true)
-                localStorage.setItem('compareWidgetDismissed', 'true')
-              }}
-              className="absolute top-3 right-3 text-slate-400 hover:text-slate-600 transition"
-            >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            </button>
-            <div className="flex items-start gap-4">
-              <div className="w-12 h-12 bg-[#3858e9]/10 rounded-xl flex items-center justify-center flex-shrink-0">
-                <span className="text-2xl">⚖️</span>
-              </div>
-              <div>
-                <h3 className="font-bold text-slate-900 mb-1">Not sure yet?</h3>
-                <p className="text-slate-600 text-sm mb-3">See how Blog Squad compares to Jasper, Copy.ai, agencies & more.</p>
-                <a 
-                  href="/blog-squad/compare/" 
-                  className="inline-flex items-center gap-1 text-[#3858e9] font-semibold text-sm hover:underline"
-                >
-                  View Comparisons →
-                </a>
-              </div>
-            </div>
           </div>
         </div>
       )}
 
       {/* Navigation */}
-      <nav className="sticky top-0 w-full bg-white/95 backdrop-blur-sm z-40 border-b border-slate-200">
+      <nav className="fixed top-0 w-full bg-[#0a0a0f]/90 backdrop-blur-md z-40 border-b border-white/5">
         <div className="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
-          <div className="flex items-center gap-2">
-            <div className="w-10 h-10 bg-[#3858e9] rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-lg">B</span>
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 bg-gradient-to-br from-cyan-400 to-purple-500 clip-corner-sm flex items-center justify-center">
+              <span className="text-black font-bold text-lg">B</span>
             </div>
-            <span className="text-xl font-bold text-slate-900">Blog Squad</span>
+            <span className="text-xl font-bold tracking-tight">Blog Squad</span>
           </div>
-          <div className="hidden md:flex items-center gap-8">
-            <a href="#how-it-works" className="text-slate-600 hover:text-[#3858e9] transition font-medium">How It Works</a>
-            <a href="#features" className="text-slate-600 hover:text-[#3858e9] transition font-medium">Features</a>
-            <a href="#packages" className="text-slate-600 hover:text-[#3858e9] transition font-medium">Pricing</a>
-            <a href="/blog-squad/compare/" className="text-slate-600 hover:text-[#3858e9] transition font-medium">Compare</a>
+          <div className="hidden md:flex items-center gap-10">
+            <a href="#agents" className="text-gray-400 hover:text-white transition text-sm font-medium tracking-wide">Agents</a>
+            <a href="#process" className="text-gray-400 hover:text-white transition text-sm font-medium tracking-wide">Process</a>
+            <a href="#pricing" className="text-gray-400 hover:text-white transition text-sm font-medium tracking-wide">Pricing</a>
           </div>
-          <a href={PAYMENT_LINKS.trial} className="hidden md:inline-block bg-[#3858e9] hover:bg-[#2945c4] text-white px-6 py-2.5 rounded-full font-semibold transition">
+          <a href={PAYMENT_LINKS.trial} className="hidden md:flex items-center gap-2 bg-white hover:bg-gray-100 text-black px-5 py-2.5 font-semibold text-sm transition-all clip-corner-sm">
             Get Started
+            <span className="w-4 h-4"><Icons.arrow /></span>
           </a>
           <button 
-            className="md:hidden p-2"
+            className="md:hidden p-2 text-gray-400"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           >
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 6h16M4 12h16M4 18h16" />
             </svg>
           </button>
         </div>
         {mobileMenuOpen && (
-          <div className="md:hidden border-t border-slate-200 bg-white px-6 py-4 space-y-4">
-            <a href="#how-it-works" className="block text-slate-600 font-medium">How It Works</a>
-            <a href="#features" className="block text-slate-600 font-medium">Features</a>
-            <a href="#packages" className="block text-slate-600 font-medium">Pricing</a>
-            <a href="/blog-squad/compare/" className="block text-slate-600 font-medium">Compare</a>
-            <a href={PAYMENT_LINKS.trial} className="block bg-[#3858e9] text-white px-6 py-2.5 rounded-full font-semibold text-center">Get Started</a>
+          <div className="md:hidden border-t border-white/5 bg-[#0a0a0f] px-6 py-6 space-y-4">
+            <a href="#agents" className="block text-gray-400 hover:text-white text-sm font-medium">Agents</a>
+            <a href="#process" className="block text-gray-400 hover:text-white text-sm font-medium">Process</a>
+            <a href="#pricing" className="block text-gray-400 hover:text-white text-sm font-medium">Pricing</a>
+            <a href={PAYMENT_LINKS.trial} className="block bg-white text-black px-5 py-2.5 font-semibold text-sm text-center clip-corner-sm">Get Started</a>
           </div>
         )}
       </nav>
 
-      {/* Hero Section - WordPress style gradient */}
-      <section className="relative pt-20 pb-32 px-6 overflow-hidden">
-        {/* Gradient background */}
-        <div className="absolute inset-0 bg-gradient-to-br from-[#1e4fff] via-[#3858e9] to-[#8c5aff]"></div>
+      {/* Hero Section */}
+      <section className="relative min-h-screen flex items-center px-6 pt-20 overflow-hidden">
+        <GridBackground />
+        <FloatingShapes />
+        <GlowOrb color="cyan" size="xl" position="top-0 -right-64" pulse />
+        <GlowOrb color="purple" size="lg" position="bottom-0 -left-48" />
+        <GlowOrb color="mixed" size="md" position="top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
         
-        {/* Decorative blobs */}
-        <Blob className="absolute -top-20 -right-20 w-96 h-96 opacity-20" color="#ffffff" />
-        <Blob className="absolute -bottom-40 -left-20 w-[500px] h-[500px] opacity-10" color="#ffffff" />
-        
-        {/* Decorative circles */}
-        <div className="absolute top-20 left-10 w-64 h-64 bg-white/10 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-10 right-20 w-80 h-80 bg-purple-400/20 rounded-full blur-3xl"></div>
-        
-        <div className="max-w-4xl mx-auto text-center relative z-10">
-          <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight text-white">
-            Meet Blog Squad
+        <div className="max-w-5xl mx-auto relative z-10 py-20">
+          <div className="flex items-center gap-3 mb-8">
+            <div className="h-px w-12 bg-gradient-to-r from-cyan-500 to-transparent" />
+            <span className="text-cyan-400 text-sm font-medium tracking-widest uppercase">AI-Powered Content</span>
+          </div>
+          
+          <h1 className="text-5xl md:text-7xl lg:text-8xl font-black mb-8 leading-[0.9] tracking-tight">
+            <span className="text-white">Content that</span>
+            <br />
+            <span className="text-gradient">dominates.</span>
           </h1>
-          <p className="text-xl md:text-2xl text-blue-100 mb-10 max-w-3xl mx-auto leading-relaxed">
-            The AI-powered content service of choice for businesses worldwide—from startups and small businesses to growing brands.
+          
+          <p className="text-xl md:text-2xl text-gray-400 mb-12 max-w-2xl leading-relaxed font-light">
+            Four specialized AI agents working in parallel. Research, write, optimize — 
+            delivered in 24-48 hours.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a href={PAYMENT_LINKS.trial} className="bg-white hover:bg-blue-50 text-[#3858e9] px-8 py-4 rounded-full font-semibold text-lg transition shadow-lg">
-              Get Started — $150 Trial
+          
+          <div className="flex flex-col sm:flex-row gap-4 mb-20">
+            <a 
+              href={PAYMENT_LINKS.trial} 
+              className="inline-flex items-center justify-center gap-3 bg-white hover:bg-gray-100 text-black px-8 py-4 font-semibold text-lg transition-all clip-corner group"
+            >
+              Start with a Trial
+              <span className="w-5 h-5 group-hover:translate-x-1 transition-transform"><Icons.arrow /></span>
             </a>
-            <a href="#how-it-works" className="bg-white/20 hover:bg-white/30 text-white border border-white/30 px-8 py-4 rounded-full font-semibold text-lg transition backdrop-blur-sm">
-              Learn More
+            <a 
+              href="#agents" 
+              className="inline-flex items-center justify-center gap-3 border border-white/20 hover:border-white/40 text-white px-8 py-4 font-semibold text-lg transition-all clip-corner hover:bg-white/5"
+            >
+              See How It Works
             </a>
           </div>
+          
+          {/* Stats */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {[
+              { value: '24-48h', label: 'Turnaround' },
+              { value: '$250', label: 'Per Article' },
+              { value: '100%', label: 'SEO Optimized' },
+              { value: '2+', label: 'Revisions' },
+            ].map((stat, i) => (
+              <div key={i} className="border-gradient p-6 bg-white/[0.02] clip-corner-sm">
+                <div className="text-2xl md:text-3xl font-bold text-white mb-1">{stat.value}</div>
+                <div className="text-sm text-gray-500 font-medium">{stat.label}</div>
+              </div>
+            ))}
+          </div>
         </div>
+      </section>
+
+      {/* Agents Section */}
+      <section id="agents" className="py-32 px-6 relative overflow-hidden">
+        <GlowOrb color="purple" size="xl" position="-top-32 left-1/4" pulse />
+        <GlowOrb color="cyan" size="md" position="bottom-0 right-0" />
+        {/* Decorative lines */}
+        <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-cyan-500/20 to-transparent" />
+        <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-purple-500/20 to-transparent" />
         
-        {/* Hero image/illustration placeholder */}
-        <div className="max-w-4xl mx-auto mt-16 relative z-10">
-          <div className="bg-white rounded-2xl shadow-2xl p-8 mx-4">
-            <div className="grid grid-cols-3 gap-4">
-              <div className="bg-gradient-to-br from-blue-50 to-indigo-100 rounded-xl p-6 text-center">
-                <div className="text-4xl mb-2">🔍</div>
-                <div className="font-semibold text-slate-700">Research</div>
-              </div>
-              <div className="bg-gradient-to-br from-purple-50 to-pink-100 rounded-xl p-6 text-center">
-                <div className="text-4xl mb-2">✍️</div>
-                <div className="font-semibold text-slate-700">Write</div>
-              </div>
-              <div className="bg-gradient-to-br from-green-50 to-emerald-100 rounded-xl p-6 text-center">
-                <div className="text-4xl mb-2">📈</div>
-                <div className="font-semibold text-slate-700">Rank</div>
-              </div>
-            </div>
+        <div className="max-w-5xl mx-auto relative z-10">
+          <div className="flex items-center gap-3 mb-4">
+            <div className="h-px w-12 bg-gradient-to-r from-cyan-500 to-transparent" />
+            <span className="text-cyan-400 text-sm font-medium tracking-widest uppercase">The Squad</span>
           </div>
-        </div>
-      </section>
-
-      {/* Stats Bar */}
-      <section className="py-16 px-6 bg-white">
-        <div className="max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-          {[
-            { stat: '24-48h', label: 'Turnaround' },
-            { stat: '$250', label: 'Per Post' },
-            { stat: '100%', label: 'SEO Optimized' },
-            { stat: '2+', label: 'Revisions Included' },
-          ].map((item, i) => (
-            <div key={i}>
-              <div className="text-3xl md:text-4xl font-bold text-[#3858e9]">{item.stat}</div>
-              <div className="text-slate-600 mt-1">{item.label}</div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* How It Works - with gradient cards */}
-      <section id="how-it-works" className="py-24 px-6 bg-gradient-to-b from-slate-50 to-white">
-        <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">How It Works</h2>
-            <p className="text-xl text-slate-600 max-w-2xl mx-auto">
-              See how your content gets created in real time, from research to publish-ready draft.
-            </p>
-          </div>
-          <div className="grid md:grid-cols-3 gap-8">
+          
+          <h2 className="text-4xl md:text-5xl font-black mb-6 tracking-tight">
+            Four agents. <span className="text-gray-500">One mission.</span>
+          </h2>
+          
+          <p className="text-xl text-gray-400 mb-16 max-w-2xl font-light">
+            Each agent specializes in a critical phase of content creation, working in parallel to deliver faster than any human team.
+          </p>
+          
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
             {[
               { 
-                icon: '🔍',
-                title: 'Research',
-                desc: 'Our AI agents analyze competitors, identify gaps, and find the angles that will make your content stand out.',
-                gradient: 'from-blue-500 to-indigo-600'
+                name: 'Stella',
+                role: 'Research',
+                desc: 'Analyzes competitors, identifies gaps, and finds the angles that will make your content stand out.',
+                icon: Icons.search,
+                color: 'cyan',
+                image: '/blog-squad/squad/stella.png'
               },
               { 
-                icon: '📊',
-                title: 'Optimize',
-                desc: 'Keywords, search intent, content structure—every post is built on real SEO data, not guesswork.',
-                gradient: 'from-purple-500 to-pink-600'
+                name: 'Luna',
+                role: 'Writing',
+                desc: 'Transforms research into compelling narratives that engage readers and drive action.',
+                icon: Icons.pen,
+                color: 'purple',
+                image: '/blog-squad/squad/luna.png'
               },
               { 
-                icon: '✍️',
-                title: 'Write',
-                desc: 'Sharp, on-brand content delivered in 24-48 hours. Review, request revisions, and publish.',
-                gradient: 'from-orange-500 to-red-600'
+                name: 'Nova',
+                role: 'SEO',
+                desc: 'Optimizes every element for search engines. Keywords, structure, meta — all handled.',
+                icon: Icons.chart,
+                color: 'pink',
+                image: '/blog-squad/squad/nova.png'
               },
-            ].map((item, i) => (
-              <div key={i} className="relative group">
-                <div className={`absolute inset-0 bg-gradient-to-br ${item.gradient} rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300`}></div>
-                <div className="relative bg-white rounded-2xl p-8 text-center shadow-lg border border-slate-100 group-hover:border-transparent transition-all duration-300">
-                  <div className="w-16 h-16 bg-gradient-to-br from-slate-100 to-slate-200 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:bg-white/20 transition-colors">
-                    <span className="text-3xl">{item.icon}</span>
+              { 
+                name: 'Max',
+                role: 'Strategy',
+                desc: 'Coordinates the operation and ensures everything aligns with your business goals.',
+                icon: Icons.brain,
+                color: 'green',
+                image: '/blog-squad/squad/max.png'
+              },
+            ].map((agent, i) => (
+              <div 
+                key={i} 
+                className="group relative bg-[#12121a] border border-white/5 hover:border-white/10 p-6 transition-all duration-500 clip-corner"
+              >
+                <div className={`absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 ${
+                  agent.color === 'cyan' ? 'bg-gradient-to-br from-cyan-500/5 to-transparent' :
+                  agent.color === 'purple' ? 'bg-gradient-to-br from-purple-500/5 to-transparent' :
+                  agent.color === 'pink' ? 'bg-gradient-to-br from-pink-500/5 to-transparent' :
+                  'bg-gradient-to-br from-green-500/5 to-transparent'
+                }`} />
+                
+                <div className="relative z-10">
+                  <div className="flex items-start justify-between mb-6">
+                    <div className={`w-12 h-12 ${
+                      agent.color === 'cyan' ? 'text-cyan-400' :
+                      agent.color === 'purple' ? 'text-purple-400' :
+                      agent.color === 'pink' ? 'text-pink-400' : 'text-green-400'
+                    }`}>
+                      <agent.icon />
+                    </div>
                   </div>
-                  <h3 className="text-xl font-bold mb-3 group-hover:text-white transition-colors">{item.title}</h3>
-                  <p className="text-slate-600 leading-relaxed group-hover:text-white/90 transition-colors">{item.desc}</p>
+                  
+                  <div className="w-20 h-20 mb-6 rounded-full overflow-hidden border-2 border-white/10 group-hover:border-white/20 transition-all">
+                    <img 
+                      src={agent.image} 
+                      alt={agent.name}
+                      className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
+                      onError={(e) => {
+                        e.target.style.display = 'none'
+                        e.target.nextSibling.style.display = 'flex'
+                      }}
+                    />
+                    <div className={`w-full h-full items-center justify-center hidden ${
+                      agent.color === 'cyan' ? 'bg-cyan-500/10' :
+                      agent.color === 'purple' ? 'bg-purple-500/10' :
+                      agent.color === 'pink' ? 'bg-pink-500/10' : 'bg-green-500/10'
+                    }`}>
+                      <div className={`w-8 h-8 ${
+                        agent.color === 'cyan' ? 'text-cyan-400' :
+                        agent.color === 'purple' ? 'text-purple-400' :
+                        agent.color === 'pink' ? 'text-pink-400' : 'text-green-400'
+                      }`}>
+                        <agent.icon />
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <h3 className="text-xl font-bold text-white mb-1">{agent.name}</h3>
+                  <p className={`text-sm font-medium mb-4 ${
+                    agent.color === 'cyan' ? 'text-cyan-400' :
+                    agent.color === 'purple' ? 'text-purple-400' :
+                    agent.color === 'pink' ? 'text-pink-400' : 'text-green-400'
+                  }`}>{agent.role}</p>
+                  <p className="text-gray-500 text-sm leading-relaxed">{agent.desc}</p>
                 </div>
               </div>
             ))}
@@ -250,67 +488,116 @@ function App() {
         </div>
       </section>
 
-      {/* Features - colorful grid */}
-      <section id="features" className="py-24 px-6 relative overflow-hidden">
-        {/* Background decoration */}
-        <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-blue-50 to-transparent"></div>
-        <Blob className="absolute -right-40 top-20 w-[600px] h-[600px] opacity-5" color="#3858e9" />
+      {/* Process Section */}
+      <section id="process" className="py-32 px-6 relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0f] via-[#0f0f18] to-[#0a0a0f]" />
+        <GlowOrb color="cyan" size="lg" position="top-1/2 -right-64 -translate-y-1/2" />
+        <GlowOrb color="purple" size="md" position="top-1/3 -left-32" />
+        {/* Grid overlay */}
+        <div 
+          className="absolute inset-0 opacity-[0.04]" 
+          style={{ 
+            backgroundImage: `radial-gradient(rgba(34, 211, 238, 0.5) 1px, transparent 1px)`,
+            backgroundSize: '40px 40px'
+          }}
+        />
         
         <div className="max-w-5xl mx-auto relative z-10">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">What You Get</h2>
-            <p className="text-xl text-slate-600 max-w-2xl mx-auto">
-              Everything you need to publish content that ranks—without the agency overhead.
-            </p>
+          <div className="flex items-center gap-3 mb-4">
+            <div className="h-px w-12 bg-gradient-to-r from-cyan-500 to-transparent" />
+            <span className="text-cyan-400 text-sm font-medium tracking-widest uppercase">Process</span>
           </div>
-          <div className="grid md:grid-cols-2 gap-6">
+          
+          <h2 className="text-4xl md:text-5xl font-black mb-16 tracking-tight">
+            Three steps. <span className="text-gray-500">Zero friction.</span>
+          </h2>
+          
+          <div className="grid md:grid-cols-3 gap-8">
             {[
               { 
-                icon: '🔍', 
-                title: 'Competitive Research',
-                items: ['Competitor content analysis', 'Market positioning insights', 'Customer pain points from reviews & forums'],
-                color: 'blue'
+                step: '01',
+                title: 'Brief',
+                desc: 'Share your topic, goals, and brand voice. We handle the rest.',
+                icon: Icons.target
               },
               { 
-                icon: '📈', 
-                title: 'SEO Strategy',
-                items: ['Primary & secondary keyword targets', 'Search volume & difficulty data', 'Optimized title, meta, headers'],
-                color: 'purple'
+                step: '02',
+                title: 'Create',
+                desc: 'Our squad researches, writes, and optimizes in parallel.',
+                icon: Icons.cpu
               },
               { 
-                icon: '✍️', 
-                title: 'Quality Content',
-                items: ['1,500-2,000 words (or custom)', 'Engaging hook, clear structure, strong CTA', 'Brand voice matching'],
-                color: 'pink'
+                step: '03',
+                title: 'Deliver',
+                desc: 'Receive publish-ready content in 24-48 hours.',
+                icon: Icons.lightning
+              },
+            ].map((item, i) => (
+              <div key={i} className="relative">
+                <div className="text-[120px] font-black text-white/[0.02] absolute -top-8 -left-4 leading-none select-none">
+                  {item.step}
+                </div>
+                <div className="relative z-10">
+                  <div className="w-14 h-14 text-cyan-400 mb-6">
+                    <item.icon />
+                  </div>
+                  <h3 className="text-2xl font-bold text-white mb-4">{item.title}</h3>
+                  <p className="text-gray-400 leading-relaxed">{item.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Deliverables */}
+      <section className="py-32 px-6 relative">
+        <div className="max-w-5xl mx-auto">
+          <div className="flex items-center gap-3 mb-4">
+            <div className="h-px w-12 bg-gradient-to-r from-cyan-500 to-transparent" />
+            <span className="text-cyan-400 text-sm font-medium tracking-widest uppercase">Deliverables</span>
+          </div>
+          
+          <h2 className="text-4xl md:text-5xl font-black mb-16 tracking-tight">
+            Everything included. <span className="text-gray-500">Always.</span>
+          </h2>
+          
+          <div className="grid md:grid-cols-2 gap-4">
+            {[
+              { 
+                icon: Icons.search, 
+                title: 'Research',
+                items: ['Competitor analysis', 'Market gap identification', 'Audience pain points'],
               },
               { 
-                icon: '📦', 
-                title: 'Deliverables',
-                items: ['Final draft in your preferred format', 'SEO checklist for publishing', 'Keyword tracking sheet'],
-                color: 'green'
+                icon: Icons.chart, 
+                title: 'SEO',
+                items: ['Keyword targeting', 'Search intent alignment', 'Technical optimization'],
+              },
+              { 
+                icon: Icons.pen, 
+                title: 'Content',
+                items: ['1,500-2,000 words', 'Conversion-focused structure', 'Brand voice matching'],
+              },
+              { 
+                icon: Icons.cube, 
+                title: 'Extras',
+                items: ['Publishing checklist', 'Keyword tracking', 'Revision rounds'],
               },
             ].map((section, i) => (
-              <div key={i} className="bg-white rounded-2xl p-8 border border-slate-200 hover:shadow-xl transition-shadow">
-                <div className="flex items-center gap-3 mb-4">
-                  <div className={`w-12 h-12 rounded-xl flex items-center justify-center ${
-                    section.color === 'blue' ? 'bg-blue-100' :
-                    section.color === 'purple' ? 'bg-purple-100' :
-                    section.color === 'pink' ? 'bg-pink-100' : 'bg-green-100'
-                  }`}>
-                    <span className="text-2xl">{section.icon}</span>
+              <div key={i} className="border-gradient p-8 bg-white/[0.01] clip-corner hover:bg-white/[0.02] transition-all">
+                <div className="flex items-center gap-4 mb-6">
+                  <div className="w-10 h-10 text-cyan-400">
+                    <section.icon />
                   </div>
-                  <h3 className="text-xl font-bold">{section.title}</h3>
+                  <h3 className="text-xl font-bold text-white">{section.title}</h3>
                 </div>
                 <ul className="space-y-3">
                   {section.items.map((item, j) => (
-                    <li key={j} className="flex items-start gap-3 text-slate-600">
-                      <svg className={`w-5 h-5 mt-0.5 flex-shrink-0 ${
-                        section.color === 'blue' ? 'text-blue-500' :
-                        section.color === 'purple' ? 'text-purple-500' :
-                        section.color === 'pink' ? 'text-pink-500' : 'text-green-500'
-                      }`} fill="currentColor" viewBox="0 0 20 20">
-                        <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                      </svg>
+                    <li key={j} className="flex items-center gap-3 text-gray-400">
+                      <div className="w-4 h-4 text-cyan-500">
+                        <Icons.check />
+                      </div>
                       {item}
                     </li>
                   ))}
@@ -321,59 +608,35 @@ function App() {
         </div>
       </section>
 
-      {/* The Problem - dark section */}
-      <section className="py-24 px-6 bg-slate-900 text-white relative overflow-hidden">
-        <Blob className="absolute -left-40 -top-40 w-[500px] h-[500px] opacity-10" color="#3858e9" />
-        <Blob className="absolute -right-40 -bottom-40 w-[500px] h-[500px] opacity-10" color="#8c5aff" />
-        
-        <div className="max-w-5xl mx-auto relative z-10">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">The Problem With Traditional Content</h2>
-            <p className="text-xl text-slate-400 max-w-2xl mx-auto">
-              You know you need content. But your options haven't been great—until now.
-            </p>
-          </div>
-          <div className="grid md:grid-cols-2 gap-6">
-            {[
-              { title: 'Content Mills', price: '$25-75/post', problem: 'Generic, no strategy, hurts your brand' },
-              { title: 'Freelancers', price: '$150-400/post', problem: 'Inconsistent quality, slow turnaround' },
-              { title: 'Agencies', price: '$500-1,500/post', problem: 'Expensive, bloated process' },
-              { title: 'In-House Writer', price: '$50-80k/year', problem: 'Fixed cost, limited output' },
-            ].map((item, i) => (
-              <div key={i} className="bg-white/5 backdrop-blur-sm rounded-xl p-6 border border-white/10">
-                <div className="flex justify-between items-start mb-2">
-                  <h3 className="font-bold text-lg">{item.title}</h3>
-                  <span className="text-sm font-mono text-red-400 bg-red-400/10 px-2 py-1 rounded">{item.price}</span>
-                </div>
-                <p className="text-slate-400">{item.problem}</p>
-              </div>
-            ))}
-          </div>
-          <div className="mt-12 bg-gradient-to-r from-[#3858e9] to-[#8c5aff] rounded-2xl p-8 text-center">
-            <p className="text-lg text-white">
-              <strong>Blog Squad is the middle ground.</strong> Agency-quality research and writing, freelancer-friendly prices, and 24-48 hour turnaround.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Pricing - gradient background */}
-      <section id="packages" className="py-24 px-6 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-white to-purple-50"></div>
+      {/* Pricing */}
+      <section id="pricing" className="py-32 px-6 relative overflow-hidden">
+        <GlowOrb color="cyan" size="xl" position="top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" pulse />
+        <GlowOrb color="purple" size="lg" position="-bottom-32 -left-32" />
+        <GlowOrb color="pink" size="md" position="-top-20 -right-20" />
+        {/* Decorative elements */}
+        <div className="absolute top-20 left-10 w-32 h-32 border border-cyan-500/10 rounded-full" />
+        <div className="absolute bottom-20 right-10 w-48 h-48 border border-purple-500/5 rotate-45" />
+        <div className="absolute top-1/2 right-20 w-px h-64 bg-gradient-to-b from-transparent via-cyan-500/20 to-transparent" />
         
         <div className="max-w-6xl mx-auto relative z-10">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Simple, Transparent Pricing</h2>
-            <p className="text-xl text-slate-600">Choose what fits your content needs. No hidden fees.</p>
+            <div className="flex items-center justify-center gap-3 mb-4">
+              <div className="h-px w-12 bg-gradient-to-r from-transparent to-cyan-500" />
+              <span className="text-cyan-400 text-sm font-medium tracking-widest uppercase">Pricing</span>
+              <div className="h-px w-12 bg-gradient-to-l from-transparent to-cyan-500" />
+            </div>
+            <h2 className="text-4xl md:text-5xl font-black tracking-tight">
+              Simple pricing. <span className="text-gray-500">Real results.</span>
+            </h2>
           </div>
-          <div className="grid md:grid-cols-4 gap-6">
+          
+          <div className="grid md:grid-cols-4 gap-4">
             {[
               {
                 name: 'Starter',
                 price: '$300',
-                unit: '/post',
-                features: ['1,500-2,000 word blog post', 'Keyword research', 'SEO-optimized structure', '1 revision round', '48-hour turnaround'],
-                best: 'Occasional content needs',
+                unit: '/article',
+                features: ['1,500-2,000 words', 'Keyword research', 'SEO optimization', '1 revision', '48h delivery'],
                 featured: false,
                 link: PAYMENT_LINKS.starter
               },
@@ -381,9 +644,8 @@ function App() {
                 name: 'Growth',
                 price: '$1,000',
                 unit: '/month',
-                subtitle: '4 posts • $250/post',
-                features: ['Everything in Starter', 'Content calendar', 'Competitor monitoring', 'Monthly SEO check-in', '2 revision rounds'],
-                best: 'Consistent content marketing',
+                subtitle: '4 articles',
+                features: ['Everything in Starter', 'Content calendar', 'Competitor monitoring', 'Strategy call', '2 revisions each'],
                 featured: false,
                 link: PAYMENT_LINKS.growth
               },
@@ -391,9 +653,8 @@ function App() {
                 name: 'Scale',
                 price: '$2,000',
                 unit: '/month',
-                subtitle: '8 posts • $250/post',
-                features: ['Everything in Growth', 'Full SEO strategy', 'Keyword gap analysis', 'Content repurposing', 'Unlimited revisions'],
-                best: 'Aggressive organic growth',
+                subtitle: '8 articles',
+                features: ['Everything in Growth', 'Full SEO strategy', 'Gap analysis', 'Content repurposing', 'Unlimited revisions'],
                 featured: true,
                 link: PAYMENT_LINKS.scale
               },
@@ -401,122 +662,146 @@ function App() {
                 name: 'Enterprise',
                 price: 'Custom',
                 unit: '',
-                features: ['12+ posts/month', 'Multi-brand support', 'Landing pages & copy', 'CMS API integration', 'White-label options'],
-                best: 'Agencies & e-commerce',
+                features: ['12+ articles/month', 'Multi-brand support', 'Landing pages', 'API integration', 'White-label'],
                 featured: false,
                 link: '#contact'
               },
             ].map((pkg, i) => (
-              <div key={i} className={`rounded-2xl p-6 flex flex-col ${pkg.featured ? 'bg-gradient-to-br from-[#3858e9] to-[#8c5aff] text-white ring-4 ring-[#3858e9]/30 scale-105 shadow-xl' : 'bg-white border border-slate-200 shadow-lg'}`}>
-                {pkg.featured && <div className="text-sm font-semibold text-blue-200 mb-2">MOST POPULAR</div>}
-                <h3 className="text-xl font-bold mb-1">{pkg.name}</h3>
-                <div className="mb-1">
-                  <span className="text-4xl font-bold">{pkg.price}</span>
-                  <span className={pkg.featured ? 'text-blue-200' : 'text-slate-500'}>{pkg.unit}</span>
+              <div 
+                key={i} 
+                className={`relative flex flex-col clip-corner ${
+                  pkg.featured 
+                    ? 'bg-gradient-to-b from-cyan-500/10 to-purple-500/10 border-2 border-cyan-500/30 glow-cyan' 
+                    : 'bg-[#12121a] border border-white/5'
+                }`}
+              >
+                {pkg.featured && (
+                  <div className="absolute -top-px left-1/2 -translate-x-1/2 px-4 py-1 bg-cyan-500 text-black text-xs font-bold tracking-wider">
+                    POPULAR
+                  </div>
+                )}
+                <div className="p-6 flex-grow">
+                  <h3 className="text-lg font-bold text-white mb-4">{pkg.name}</h3>
+                  <div className="mb-2">
+                    <span className="text-4xl font-black text-white">{pkg.price}</span>
+                    <span className="text-gray-500 text-sm">{pkg.unit}</span>
+                  </div>
+                  {pkg.subtitle && <p className="text-cyan-400 text-sm font-medium mb-6">{pkg.subtitle}</p>}
+                  {!pkg.subtitle && <div className="mb-6" />}
+                  <ul className="space-y-3">
+                    {pkg.features.map((f, j) => (
+                      <li key={j} className="flex items-start gap-3 text-sm text-gray-400">
+                        <div className="w-4 h-4 text-cyan-500 mt-0.5 flex-shrink-0">
+                          <Icons.check />
+                        </div>
+                        {f}
+                      </li>
+                    ))}
+                  </ul>
                 </div>
-                {pkg.subtitle && <p className={`text-sm mb-4 ${pkg.featured ? 'text-blue-200' : 'text-slate-500'}`}>{pkg.subtitle}</p>}
-                {!pkg.subtitle && <div className="mb-4"></div>}
-                <ul className="space-y-3 mb-6 flex-grow">
-                  {pkg.features.map((f, j) => (
-                    <li key={j} className="flex items-start gap-2 text-sm">
-                      <svg className={`w-5 h-5 mt-0.5 flex-shrink-0 ${pkg.featured ? 'text-blue-200' : 'text-[#3858e9]'}`} fill="currentColor" viewBox="0 0 20 20">
-                        <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                      </svg>
-                      <span className={pkg.featured ? 'text-blue-100' : 'text-slate-600'}>{f}</span>
-                    </li>
-                  ))}
-                </ul>
-                <p className={`text-sm mb-4 ${pkg.featured ? 'text-blue-200' : 'text-slate-500'}`}>Best for: {pkg.best}</p>
-                <a 
-                  href={pkg.link}
-                  className={`block text-center py-3 rounded-full font-semibold transition ${
-                    pkg.featured 
-                      ? 'bg-white text-[#3858e9] hover:bg-blue-50' 
-                      : pkg.name === 'Enterprise'
-                        ? 'bg-slate-100 hover:bg-slate-200 text-slate-700'
-                        : 'bg-[#3858e9] hover:bg-[#2945c4] text-white'
-                  }`}
-                >
-                  {pkg.name === 'Enterprise' ? 'Contact Us' : 'Get Started'}
-                </a>
+                <div className="p-6 pt-0">
+                  <a 
+                    href={pkg.link}
+                    className={`block text-center py-3 font-semibold transition-all clip-corner-sm ${
+                      pkg.featured 
+                        ? 'bg-white text-black hover:bg-gray-100' 
+                        : 'bg-white/5 text-white hover:bg-white/10'
+                    }`}
+                  >
+                    {pkg.name === 'Enterprise' ? 'Contact Us' : 'Get Started'}
+                  </a>
+                </div>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Trial CTA - vibrant gradient */}
-      <section className="py-24 px-6">
+      {/* Trial CTA */}
+      <section className="py-32 px-6">
         <div className="max-w-3xl mx-auto">
-          <div className="relative rounded-3xl overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-to-r from-[#1e4fff] via-[#3858e9] to-[#8c5aff]"></div>
-            <Blob className="absolute -right-20 -top-20 w-80 h-80 opacity-20" color="#ffffff" />
-            <Blob className="absolute -left-20 -bottom-20 w-80 h-80 opacity-20" color="#ffffff" />
-            
-            <div className="relative z-10 p-12 text-center text-white">
-              <h2 className="text-3xl md:text-4xl font-bold mb-4">Try Before You Commit</h2>
-              <p className="text-xl text-blue-100 mb-6">
-                One post, $150. Fully-researched, SEO-optimized, delivered in 48 hours.
-              </p>
-              <p className="text-blue-200 mb-8">
-                Love it? We'll credit the $150 toward your first monthly package.
-              </p>
-              <a href={PAYMENT_LINKS.trial} className="inline-block bg-white hover:bg-blue-50 text-[#3858e9] px-8 py-4 rounded-full font-bold text-lg transition shadow-lg">
-                Start Your Trial — $150
-              </a>
+          <div className="relative border-gradient p-12 md:p-16 text-center bg-gradient-to-b from-white/[0.02] to-transparent clip-corner">
+            <div className="w-16 h-16 mx-auto mb-8 text-cyan-400">
+              <Icons.lightning />
             </div>
+            <h2 className="text-3xl md:text-4xl font-black mb-4 tracking-tight">
+              Start with a trial.
+            </h2>
+            <p className="text-xl text-gray-400 mb-4 font-light">
+              One article. Full process. $150.
+            </p>
+            <p className="text-gray-500 mb-10">
+              Not satisfied? Full refund. Love it? We credit the $150 toward your first package.
+            </p>
+            <a 
+              href={PAYMENT_LINKS.trial} 
+              className="inline-flex items-center gap-3 bg-white hover:bg-gray-100 text-black px-10 py-5 font-semibold text-lg transition-all clip-corner group"
+            >
+              Start Trial
+              <span className="w-5 h-5 group-hover:translate-x-1 transition-transform"><Icons.arrow /></span>
+            </a>
           </div>
         </div>
       </section>
 
-      {/* Contact Form */}
-      <section id="contact" className="py-24 px-6 bg-slate-50">
-        <div className="max-w-xl mx-auto">
-          <div className="text-center mb-10">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Get in Touch</h2>
-            <p className="text-slate-600">Questions? Enterprise inquiry? We'd love to hear from you.</p>
+      {/* Contact */}
+      <section id="contact" className="py-32 px-6 relative">
+        <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0f] to-[#0f0f18]" />
+        
+        <div className="max-w-xl mx-auto relative z-10">
+          <div className="text-center mb-12">
+            <div className="flex items-center justify-center gap-3 mb-4">
+              <div className="h-px w-12 bg-gradient-to-r from-transparent to-cyan-500" />
+              <span className="text-cyan-400 text-sm font-medium tracking-widest uppercase">Contact</span>
+              <div className="h-px w-12 bg-gradient-to-l from-transparent to-cyan-500" />
+            </div>
+            <h2 className="text-4xl font-black tracking-tight">
+              Get in touch.
+            </h2>
           </div>
           
           {submitted ? (
-            <div className="bg-green-50 border border-green-200 rounded-2xl p-8 text-center">
-              <div className="text-4xl mb-4">✅</div>
-              <h3 className="text-xl font-semibold mb-2 text-green-800">Message Received!</h3>
-              <p className="text-green-700">We'll get back to you within 24 hours.</p>
+            <div className="border border-green-500/30 bg-green-500/5 p-10 text-center clip-corner">
+              <div className="w-12 h-12 mx-auto mb-4 text-green-400">
+                <Icons.check />
+              </div>
+              <h3 className="text-xl font-bold text-white mb-2">Message Sent</h3>
+              <p className="text-gray-400">We'll respond within 24 hours.</p>
             </div>
           ) : (
-            <form onSubmit={handleSubmit} className="bg-white rounded-2xl p-8 border border-slate-200 shadow-lg space-y-6">
+            <form onSubmit={handleSubmit} className="border-gradient bg-white/[0.01] p-8 space-y-6 clip-corner">
               <div>
-                <label className="block text-sm font-semibold mb-2 text-slate-700">Name</label>
+                <label className="block text-sm font-medium mb-2 text-gray-400">Name</label>
                 <input
                   type="text"
                   required
-                  className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-[#3858e9] focus:border-transparent transition"
+                  className="w-full px-4 py-3 bg-white/5 border border-white/10 focus:border-cyan-500/50 focus:ring-1 focus:ring-cyan-500/50 transition text-white placeholder-gray-600 outline-none"
                   value={formData.name}
                   onChange={(e) => setFormData({...formData, name: e.target.value})}
                 />
               </div>
               <div>
-                <label className="block text-sm font-semibold mb-2 text-slate-700">Email</label>
+                <label className="block text-sm font-medium mb-2 text-gray-400">Email</label>
                 <input
                   type="email"
                   required
-                  className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-[#3858e9] focus:border-transparent transition"
+                  className="w-full px-4 py-3 bg-white/5 border border-white/10 focus:border-cyan-500/50 focus:ring-1 focus:ring-cyan-500/50 transition text-white placeholder-gray-600 outline-none"
                   value={formData.email}
                   onChange={(e) => setFormData({...formData, email: e.target.value})}
                 />
               </div>
               <div>
-                <label className="block text-sm font-semibold mb-2 text-slate-700">Message</label>
+                <label className="block text-sm font-medium mb-2 text-gray-400">Message</label>
                 <textarea
                   rows={4}
-                  className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-[#3858e9] focus:border-transparent transition"
+                  className="w-full px-4 py-3 bg-white/5 border border-white/10 focus:border-cyan-500/50 focus:ring-1 focus:ring-cyan-500/50 transition text-white placeholder-gray-600 outline-none resize-none"
                   value={formData.message}
                   onChange={(e) => setFormData({...formData, message: e.target.value})}
                 />
               </div>
               <button
                 type="submit"
-                className="w-full bg-[#3858e9] hover:bg-[#2945c4] text-white py-4 rounded-full font-semibold text-lg transition"
+                className="w-full bg-white hover:bg-gray-100 text-black py-4 font-semibold transition-all clip-corner-sm"
               >
                 Send Message
               </button>
@@ -526,17 +811,17 @@ function App() {
       </section>
 
       {/* Footer */}
-      <footer className="py-12 px-6 border-t border-slate-200 bg-white">
+      <footer className="py-12 px-6 border-t border-white/5">
         <div className="max-w-5xl mx-auto">
           <div className="flex flex-col md:flex-row justify-between items-center gap-6">
-            <div className="flex items-center gap-2">
-              <div className="w-8 h-8 bg-[#3858e9] rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold">B</span>
+            <div className="flex items-center gap-3">
+              <div className="w-8 h-8 bg-gradient-to-br from-cyan-400 to-purple-500 clip-corner-sm flex items-center justify-center">
+                <span className="text-black font-bold text-sm">B</span>
               </div>
-              <span className="font-bold text-slate-900">Blog Squad</span>
+              <span className="font-bold text-white">Blog Squad</span>
             </div>
-            <p className="text-slate-500 text-center">Content that ranks. Copy that converts. Speed that scales.</p>
-            <p className="text-slate-400 text-sm">© 2026 Street Chef Digital</p>
+            <p className="text-gray-600 text-sm">Research. Write. Rank. Dominate.</p>
+            <p className="text-gray-700 text-sm">© 2026 Street Chef Digital</p>
           </div>
         </div>
       </footer>
