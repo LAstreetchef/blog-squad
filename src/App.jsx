@@ -320,24 +320,27 @@ function App() {
         <GlowOrb color="purple" size="lg" position="bottom-0 -left-48" />
         <GlowOrb color="mixed" size="md" position="top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
         
-        <div className="max-w-5xl mx-auto relative z-10 py-20">
-          <div className="flex items-center gap-3 mb-8">
-            <div className="h-px w-12 bg-gradient-to-r from-cyan-500 to-transparent" />
-            <span className="text-cyan-400 text-sm font-medium tracking-widest uppercase">AI-Powered Content</span>
-          </div>
-          
-          <h1 className="text-5xl md:text-7xl lg:text-8xl font-black mb-8 leading-[0.9] tracking-tight">
-            <span className="text-white">Content that</span>
-            <br />
-            <span className="text-gradient">dominates.</span>
-          </h1>
-          
-          <p className="text-xl md:text-2xl text-gray-400 mb-12 max-w-2xl leading-relaxed font-light">
-            Four specialized AI agents working in parallel. Research, write, optimize — 
-            delivered in 24-48 hours.
-          </p>
-          
-          <div className="flex flex-col sm:flex-row gap-4 mb-20">
+        <div className="max-w-6xl mx-auto relative z-10 py-20">
+          <div className="flex flex-col lg:flex-row items-center gap-12">
+            {/* Left side - Text content */}
+            <div className="flex-1">
+              <div className="flex items-center gap-3 mb-8">
+                <div className="h-px w-12 bg-gradient-to-r from-cyan-500 to-transparent" />
+                <span className="text-cyan-400 text-sm font-medium tracking-widest uppercase">AI-Powered Content</span>
+              </div>
+              
+              <h1 className="text-5xl md:text-7xl lg:text-8xl font-black mb-8 leading-[0.9] tracking-tight">
+                <span className="text-white">Content that</span>
+                <br />
+                <span className="text-gradient">dominates.</span>
+              </h1>
+              
+              <p className="text-xl md:text-2xl text-gray-400 mb-12 max-w-2xl leading-relaxed font-light">
+                Four specialized AI agents working in parallel. Research, write, optimize — 
+                delivered in 24-48 hours.
+              </p>
+              
+              <div className="flex flex-col sm:flex-row gap-4 mb-20">
             <a 
               href={PAYMENT_LINKS.trial} 
               className="inline-flex items-center justify-center gap-3 bg-white hover:bg-gray-100 text-black px-8 py-4 font-semibold text-lg transition-all clip-corner group"
@@ -352,12 +355,23 @@ function App() {
               See How It Works
             </a>
           </div>
+            </div>
+            
+            {/* Right side - Stella mascot */}
+            <div className="flex-shrink-0 hidden lg:block">
+              <img 
+                src="/blog-squad/characters/stella.png" 
+                alt="Stella - Blog Squad AI Assistant" 
+                className="w-72 xl:w-80 h-auto drop-shadow-2xl"
+              />
+            </div>
+          </div>
           
           {/* Stats */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {[
               { value: '24-48h', label: 'Turnaround' },
-              { value: '$250', label: 'Per Article' },
+              { value: '$60', label: 'Per Article' },
               { value: '100%', label: 'SEO Optimized' },
               { value: '2+', label: 'Revisions' },
             ].map((stat, i) => (
