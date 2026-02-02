@@ -634,7 +634,7 @@ function App() {
             {[
               {
                 name: 'Starter',
-                price: '$300',
+                price: '$60',
                 unit: '/article',
                 features: ['1,500-2,000 words', 'Keyword research', 'SEO optimization', '1 revision', '48h delivery'],
                 featured: false,
@@ -642,7 +642,7 @@ function App() {
               },
               {
                 name: 'Growth',
-                price: '$1,000',
+                price: '$120',
                 unit: '/month',
                 subtitle: '4 articles',
                 features: ['Everything in Starter', 'Content calendar', 'Competitor monitoring', 'Strategy call', '2 revisions each'],
@@ -651,7 +651,7 @@ function App() {
               },
               {
                 name: 'Scale',
-                price: '$2,000',
+                price: '$240',
                 unit: '/month',
                 subtitle: '8 articles',
                 features: ['Everything in Growth', 'Full SEO strategy', 'Gap analysis', 'Content repurposing', 'Unlimited revisions'],
