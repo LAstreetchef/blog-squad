@@ -359,9 +359,12 @@ function App() {
             
             {/* Right side - Stella mascot */}
             <div className="flex-shrink-0 hidden lg:block">
-              <img 
-                src="/blog-squad/characters/stella.png" 
-                alt="Stella - Blog Squad AI Assistant" 
+              <video 
+                src="/blog-squad/characters/stella.mp4" 
+                autoPlay 
+                loop 
+                muted 
+                playsInline
                 className="w-72 xl:w-80 h-auto drop-shadow-2xl"
               />
             </div>
@@ -414,7 +417,8 @@ function App() {
                 desc: 'Analyzes competitors, identifies gaps, and finds the angles that will make your content stand out.',
                 icon: Icons.search,
                 color: 'cyan',
-                image: '/blog-squad/squad/stella.png'
+                image: '/blog-squad/squad/stella.mp4',
+                isVideo: true
               },
               { 
                 name: 'Luna',
@@ -464,15 +468,26 @@ function App() {
                   </div>
                   
                   <div className="w-20 h-20 mb-6 rounded-full overflow-hidden border-2 border-white/10 group-hover:border-white/20 transition-all">
-                    <img 
-                      src={agent.image} 
-                      alt={agent.name}
-                      className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
-                      onError={(e) => {
-                        e.target.style.display = 'none'
-                        e.target.nextSibling.style.display = 'flex'
-                      }}
-                    />
+                    {agent.isVideo ? (
+                      <video 
+                        src={agent.image} 
+                        autoPlay 
+                        loop 
+                        muted 
+                        playsInline
+                        className="w-full h-full object-cover"
+                      />
+                    ) : (
+                      <img 
+                        src={agent.image} 
+                        alt={agent.name}
+                        className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
+                        onError={(e) => {
+                          e.target.style.display = 'none'
+                          e.target.nextSibling.style.display = 'flex'
+                        }}
+                      />
+                    )}
                     <div className={`w-full h-full items-center justify-center hidden ${
                       agent.color === 'cyan' ? 'bg-cyan-500/10' :
                       agent.color === 'purple' ? 'bg-purple-500/10' :
@@ -726,6 +741,58 @@ function App() {
                   </a>
                 </div>
               </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Quick Spin - Fly Wheel Integration */}
+      <section className="py-24 px-6 relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/5 via-purple-500/5 to-cyan-500/5" />
+        <div className="max-w-5xl mx-auto relative z-10">
+          <div className="flex items-center gap-3 mb-4">
+            <div className="h-px w-12 bg-gradient-to-r from-cyan-500 to-transparent" />
+            <span className="text-cyan-400 text-sm font-medium tracking-widest uppercase">Quick Spin</span>
+          </div>
+          
+          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12">
+            <div>
+              <h2 className="text-3xl md:text-4xl font-black mb-3 tracking-tight">
+                Need just <span className="text-cyan-400">one post</span>?
+              </h2>
+              <p className="text-gray-400 text-lg max-w-xl">
+                No subscription needed. Pay-as-you-go micro content — social posts, carousels, emails. 
+                Powered by <span className="text-cyan-400">Fly Wheel</span>.
+              </p>
+            </div>
+            <a 
+              href="/fly-wheel/"
+              className="inline-flex items-center gap-2 text-cyan-400 hover:text-cyan-300 font-medium transition-colors"
+            >
+              See all options
+              <span className="w-4 h-4"><Icons.arrow /></span>
+            </a>
+          </div>
+          
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {[
+              { icon: '📱', title: 'Social Post', price: '$5', desc: 'IG, Twitter, or TikTok' },
+              { icon: '🎠', title: 'Carousel', price: '$10', desc: '5-slide Instagram' },
+              { icon: '🎬', title: 'Video Script', price: '$15', desc: 'TikTok/Reel ready' },
+              { icon: '📧', title: 'Email Blast', price: '$25', desc: 'Subject + body copy' },
+            ].map((item, i) => (
+              <a
+                key={i}
+                href="/fly-wheel/#pricing"
+                className="group bg-white/[0.02] border border-white/10 hover:border-cyan-500/50 p-6 clip-corner-sm transition-all hover:bg-white/[0.04]"
+              >
+                <div className="text-3xl mb-3 group-hover:scale-110 transition-transform">{item.icon}</div>
+                <div className="flex items-baseline justify-between mb-1">
+                  <span className="font-bold text-white">{item.title}</span>
+                  <span className="text-cyan-400 font-bold">{item.price}</span>
+                </div>
+                <span className="text-sm text-gray-500">{item.desc}</span>
+              </a>
             ))}
           </div>
         </div>
