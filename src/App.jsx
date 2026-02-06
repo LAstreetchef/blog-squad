@@ -184,6 +184,21 @@ function App() {
     }
   }, [])
 
+  // Autoplay Stella voice on page load
+  useEffect(() => {
+    const audio = document.getElementById('stella-voice')
+    if (audio) {
+      audio.play().catch(() => {
+        // Autoplay blocked - play on first user interaction
+        const playOnce = () => {
+          audio.play()
+          document.removeEventListener('click', playOnce)
+        }
+        document.addEventListener('click', playOnce, { once: true })
+      })
+    }
+  }, [])
+
   const handleSubmit = (e) => {
     e.preventDefault()
     setSubmitted(true)
@@ -191,6 +206,9 @@ function App() {
 
   return (
     <div className="min-h-screen bg-[#0a0a0f] text-white overflow-x-hidden">
+      {/* Stella Voice - Autoplay on load */}
+      <audio id="stella-voice" src="/blog-squad/stella-voice.mp4" preload="auto" />
+      
       {/* Custom styles */}
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
