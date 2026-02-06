@@ -184,14 +184,14 @@ function App() {
     }
   }, [])
 
-  // Autoplay Stella voice on page load
+  // Autoplay Stella video with sound on page load
   useEffect(() => {
-    const audio = document.getElementById('stella-voice')
-    if (audio) {
-      audio.play().catch(() => {
+    const video = document.getElementById('stella-video')
+    if (video) {
+      video.play().catch(() => {
         // Autoplay blocked - play on first user interaction
         const playOnce = () => {
-          audio.play()
+          video.play()
           document.removeEventListener('click', playOnce)
         }
         document.addEventListener('click', playOnce, { once: true })
@@ -206,9 +206,6 @@ function App() {
 
   return (
     <div className="min-h-screen bg-[#0a0a0f] text-white overflow-x-hidden">
-      {/* Stella Voice - Autoplay on load */}
-      <audio id="stella-voice" src="/blog-squad/stella-voice.mp4" preload="auto" />
-      
       {/* Custom styles */}
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
@@ -378,10 +375,9 @@ function App() {
             {/* Right side - Stella mascot */}
             <div className="flex-shrink-0 hidden lg:block">
               <video 
+                id="stella-video"
                 src="/blog-squad/characters/stella.mp4" 
                 autoPlay 
-                loop 
-                muted 
                 playsInline
                 className="w-72 xl:w-80 h-auto drop-shadow-2xl"
               />
